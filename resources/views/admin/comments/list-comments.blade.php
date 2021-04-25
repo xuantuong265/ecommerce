@@ -1,0 +1,55 @@
+@extends('admin-layout')
+@section('admin_content')
+
+<h3 style="text-align: center; margin-bottom: 30px; ">Quản lý bình luận</h3>
+<div class="form">
+  @include('admin.elements.form-search-comments')   
+</div>
+<div class="table-agile-info">
+    <div class="panel panel-primary">
+      <div class="panel-heading" style="font-size: 16px !important;">
+          Danh sách khách hàng bình luận
+      </div>
+      
+      <div class="table-responsive">
+        <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th>STT: </th>
+              <th>Tên khách hàng: </th>
+              <th>Nội dung bình luận:</th>
+              <th>Mã sản phẩm:</th>
+              <th>Thời gian: </th>
+              <th>Trạng thái:</th>
+              <th>Xóa</th>
+            </tr>
+          </thead>
+          <tbody id="myTable">
+             <?php $stt = 0; ?>
+             @foreach ($comments as $item)
+                 <?php $stt++ ?>
+                 <tr>
+                    <td>{{ $stt }}</td>
+                    <td>{{ $item->name_user  }}</td>
+                    <td>{{ $item->comments_content  }}</td>
+                    <td>{{ $item->id_pro  }}</td>
+                    <td>{{ $item->created_at  }}</td>
+                    <td><span class="text-ellipsis">
+                      @if ($item->status == '0')
+                        <a href=" {{Route('unComments', ['id' => $item->id]) }} ">Hiển thị</a>
+                      @else
+                        <a href=" {{Route('activeComments', ['id' => $item->id]) }} ">Ẩn</a>
+                      @endif
+                  </span>
+              </td>
+              <td><a href=" {{Route('deleteComments', ['id' => $item->id]) }} ">Xóa</a></td>
+                 </tr>
+             @endforeach
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+@endsection
+

@@ -1,0 +1,21 @@
+<div class="viewsCount">
+
+<?php
+
+$datas = DB::table('tbl_viewscount')->get();
+
+foreach ($datas as $key => $value) {
+	$viewsNext = $value->views+1;
+	if (!Session::has('viewsCount')) {
+		$update = DB::table('tbl_viewscount')->where('id', 1)->update(['views' => $viewsNext]);
+		Session::put('viewsCount', 1);
+	} else {
+		echo (" còn session ");
+	}
+	echo '<p style="margin-top: 20px; color: #FE980F;"> Số lượng người truy cập website: '.$value->views.'</p>';
+
+}
+
+?>
+</ul>
+</div>
